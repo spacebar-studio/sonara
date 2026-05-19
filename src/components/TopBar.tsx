@@ -1,5 +1,47 @@
 import { type FC, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const Tooltip: FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      style={{ position: 'relative', display: 'inline-flex' }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {children}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 4, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.95 }}
+            transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
+            style={{
+              position: 'absolute',
+              top: 'calc(100% + 8px)',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              background: 'var(--surface)',
+              color: 'var(--text-primary)',
+              fontSize: '12px',
+              fontWeight: 500,
+              letterSpacing: '0.01em',
+              padding: '6px 12px',
+              borderRadius: 'var(--radius-pill)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)',
+              whiteSpace: 'nowrap',
+              pointerEvents: 'none',
+              zIndex: 50,
+            }}
+          >
+            {label}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 interface TopBarProps {
   searchQuery: string;
@@ -71,58 +113,61 @@ const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, onSwap, onStartT
         </motion.button>
 
         {/* Onboarding tour button */}
-        <motion.button
-          onClick={onStartTour}
-          style={styles.iconBtn}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-          title="Start guided tour"
-        >
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <circle cx="12" cy="12" r="10" />
-            <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
-            <line x1="12" y1="17" x2="12.01" y2="17" />
-          </svg>
-        </motion.button>
+        <Tooltip label="Start Tour">
+          <motion.button
+            onClick={onStartTour}
+            style={styles.iconBtn}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+          </motion.button>
+        </Tooltip>
 
         {/* Design presentation button */}
-        <motion.button
-          onClick={onStartPresentation}
-          style={styles.iconBtn}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-          title="Design presentation"
-        >
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" />
-            <path d="M8 21h8" />
-            <path d="M12 17v4" />
-          </svg>
-        </motion.button>
+        <Tooltip label="Interface Guide">
+          <motion.button
+            onClick={onStartPresentation}
+            style={styles.iconBtn}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+          >
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8" />
+              <path d="M12 17v4" />
+            </svg>
+          </motion.button>
+        </Tooltip>
 
-        <motion.button
-          onClick={onSwap}
-          style={styles.iconBtn}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-          title="Put record back"
-        >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <path d="M17 1l4 4-4 4" />
-            <path d="M3 11V9a4 4 0 014-4h14" />
-            <path d="M7 23l-4-4 4-4" />
-            <path d="M21 13v2a4 4 0 01-4 4H3" />
-          </svg>
-        </motion.button>
+        <Tooltip label="Reset Experience">
+          <motion.button
+            onClick={onSwap}
+            style={styles.iconBtn}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <path d="M17 1l4 4-4 4" />
+              <path d="M3 11V9a4 4 0 014-4h14" />
+              <path d="M7 23l-4-4 4-4" />
+              <path d="M21 13v2a4 4 0 01-4 4H3" />
+            </svg>
+          </motion.button>
+        </Tooltip>
       </div>
     </header>
   );
