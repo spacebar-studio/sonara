@@ -200,6 +200,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     alignItems: 'center',
     gap: '8px',
     flexShrink: 0,
+    marginRight: '10px',
   },
   iconBtn: {
     display: 'flex',
