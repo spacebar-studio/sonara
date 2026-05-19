@@ -16,8 +16,10 @@ const Tooltip: FC<{ label: string; children: React.ReactNode }> = ({ label, chil
             style={{
               position: 'absolute',
               top: 'calc(100% + 8px)',
-              left: '50%',
-              transform: 'translateX(calc(-50% - 50px))',
+              left: 0,
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
               pointerEvents: 'none',
               zIndex: 50,
             }}
