@@ -11,7 +11,7 @@ interface TopBarProps {
   onDownload: () => void;
 }
 
-const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, hasActiveRecord, onSwap, onStartTour, onStartPresentation, onDownload }) => {
+const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, onSwap, onStartTour, onStartPresentation, onDownload }) => {
   const [searchFocused, setSearchFocused] = useState(false);
 
   return (

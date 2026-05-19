@@ -11,7 +11,7 @@ interface BookshelfProps {
   recordCustomizations: { [id: string]: { coverIndex: number; finish: string } };
 }
 
-const Bookshelf: FC<BookshelfProps> = ({ records, selectedRecord, onSelect, isReceded, recordCustomizations }) => {
+const Bookshelf: FC<BookshelfProps> = ({ records, selectedRecord, onSelect, recordCustomizations }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);

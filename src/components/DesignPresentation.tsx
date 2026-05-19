@@ -93,7 +93,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 
 const everythingGlows = records.find(r => r.id === 'cannons-everything-glows')!;
 const shadowsAlbum = records.find(r => r.id === 'cannons-shadows')!;
-const feverDream = records.find(r => r.id === 'cannons-fever-dream')!;
+
 
 interface DesignPresentationProps {
   isActive: boolean;

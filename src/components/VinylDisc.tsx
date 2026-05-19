@@ -29,7 +29,6 @@ const VinylDisc: FC<VinylDiscProps> = ({
   finishColorful = false,
   labelColor,
   albumTitle,
-  artist,
   coverImage,
   coverFilter,
   isSpinning,
@@ -49,7 +48,7 @@ const VinylDisc: FC<VinylDiscProps> = ({
   const labelSize = size * 0.33;
 
   const prevFinishRef = useRef(finishBackground);
-  const pourTimerRef = useRef<ReturnType<typeof setTimeout>>();
+  const pourTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [pourState, setPourState] = useState<{ from: string; to: string; active: boolean }>({ from: finishBackground, to: finishBackground, active: false });
 
   useEffect(() => {

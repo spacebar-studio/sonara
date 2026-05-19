@@ -120,7 +120,6 @@ const OnboardingOverlay: FC<OnboardingOverlayProps> = ({
   extractVinyl,
   placeOnPlatter,
   startPlayback,
-  pausePlayback,
   swapRecord,
   step,
   onStepChange,

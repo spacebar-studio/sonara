@@ -149,7 +149,6 @@ const HeroStage: FC<HeroStageProps> = ({
   ].includes(appState);
   const showTurntable =
     isOnPlatter || appState === 'placing';
-  const showVinylFinish = appState === 'vinylExtracted';
   const showCoverCustomization = [
     'focusedRecord',
     'customizing',
