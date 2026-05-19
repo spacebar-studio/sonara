@@ -1,22 +1,5 @@
 import { type FC, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-
-const tooltipStyle: React.CSSProperties = {
-  position: 'absolute',
-  top: 'calc(100% + 8px)',
-  left: '50%',
-  background: 'var(--surface)',
-  color: 'var(--text-primary)',
-  fontSize: '12px',
-  fontWeight: 500,
-  letterSpacing: '0.01em',
-  padding: '6px 12px',
-  borderRadius: 'var(--radius-pill)',
-  boxShadow: '0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)',
-  whiteSpace: 'nowrap',
-  pointerEvents: 'none',
-  zIndex: 50,
-};
+import { motion } from 'framer-motion';
 
 interface TopBarProps {
   searchQuery: string;
@@ -105,19 +88,13 @@ const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, onSwap, onStartT
             <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
             <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
-          <AnimatePresence>
-            {hoveredBtn === 'tour' && (
-              <motion.span
-                initial={{ opacity: 0, y: 4, x: '-50%' }}
-                animate={{ opacity: 1, y: 0, x: '-50%' }}
-                exit={{ opacity: 0, y: 4, x: '-50%' }}
-                transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
-                style={tooltipStyle}
-              >
-                Start Tour
-              </motion.span>
-            )}
-          </AnimatePresence>
+          <span style={{
+            ...styles.tooltip,
+            opacity: hoveredBtn === 'tour' ? 1 : 0,
+            transform: `translateX(-50%) translateY(${hoveredBtn === 'tour' ? '0' : '4px'})`,
+          }}>
+            Start Tour
+          </span>
         </motion.button>
 
         {/* Design presentation button */}
@@ -137,19 +114,13 @@ const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, onSwap, onStartT
             <path d="M8 21h8" />
             <path d="M12 17v4" />
           </svg>
-          <AnimatePresence>
-            {hoveredBtn === 'presentation' && (
-              <motion.span
-                initial={{ opacity: 0, y: 4, x: '-50%' }}
-                animate={{ opacity: 1, y: 0, x: '-50%' }}
-                exit={{ opacity: 0, y: 4, x: '-50%' }}
-                transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
-                style={tooltipStyle}
-              >
-                Interface Guide
-              </motion.span>
-            )}
-          </AnimatePresence>
+          <span style={{
+            ...styles.tooltip,
+            opacity: hoveredBtn === 'presentation' ? 1 : 0,
+            transform: `translateX(-50%) translateY(${hoveredBtn === 'presentation' ? '0' : '4px'})`,
+          }}>
+            Interface Guide
+          </span>
         </motion.button>
 
         {/* Reset button */}
@@ -170,19 +141,13 @@ const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, onSwap, onStartT
             <path d="M7 23l-4-4 4-4" />
             <path d="M21 13v2a4 4 0 01-4 4H3" />
           </svg>
-          <AnimatePresence>
-            {hoveredBtn === 'reset' && (
-              <motion.span
-                initial={{ opacity: 0, y: 4, x: '-50%' }}
-                animate={{ opacity: 1, y: 0, x: '-50%' }}
-                exit={{ opacity: 0, y: 4, x: '-50%' }}
-                transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
-                style={tooltipStyle}
-              >
-                Reset Experience
-              </motion.span>
-            )}
-          </AnimatePresence>
+          <span style={{
+            ...styles.tooltip,
+            opacity: hoveredBtn === 'reset' ? 1 : 0,
+            transform: `translateX(-50%) translateY(${hoveredBtn === 'reset' ? '0' : '4px'})`,
+          }}>
+            Reset Experience
+          </span>
         </motion.button>
       </div>
     </header>
@@ -248,6 +213,23 @@ const styles: { [key: string]: React.CSSProperties } = {
     color: 'var(--text-secondary)',
     flexShrink: 0,
     cursor: 'pointer',
+  },
+  tooltip: {
+    position: 'absolute' as const,
+    top: 'calc(100% + 8px)',
+    left: '50%',
+    background: 'var(--surface)',
+    color: 'var(--text-primary)',
+    fontSize: '12px',
+    fontWeight: 500,
+    letterSpacing: '0.01em',
+    padding: '6px 12px',
+    borderRadius: 'var(--radius-pill)',
+    boxShadow: '0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)',
+    whiteSpace: 'nowrap' as const,
+    pointerEvents: 'none' as const,
+    zIndex: 50,
+    transition: 'opacity 0.15s ease, transform 0.15s ease',
   },
 };
 
