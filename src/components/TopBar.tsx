@@ -13,9 +13,9 @@ const Tooltip: FC<{ label: string; children: React.ReactNode }> = ({ label, chil
       <AnimatePresence>
         {hovered && (
           <motion.div
-            initial={{ opacity: 0, y: 4, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 4, scale: 0.95 }}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
             style={{
               position: 'absolute',
