@@ -55,7 +55,7 @@ const TopBar: FC<TopBarProps> = ({ searchQuery, onSearchChange, onSwap, onStartT
         {/* Download button */}
         <motion.button
           onClick={onDownload}
-          style={styles.iconBtn}
+          style={{ ...styles.iconBtn, display: 'none' }}
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.1, boxShadow: 'var(--shadow-md)' }}
