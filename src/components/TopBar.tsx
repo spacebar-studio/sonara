@@ -12,31 +12,36 @@ const Tooltip: FC<{ label: string; children: React.ReactNode }> = ({ label, chil
       {children}
       <AnimatePresence>
         {hovered && (
-          <motion.div
-            initial={{ opacity: 0, y: 4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 4 }}
-            transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
+          <div
             style={{
               position: 'absolute',
               top: 'calc(100% + 8px)',
               left: '50%',
               transform: 'translateX(-50%)',
-              background: 'var(--surface)',
-              color: 'var(--text-primary)',
-              fontSize: '12px',
-              fontWeight: 500,
-              letterSpacing: '0.01em',
-              padding: '6px 12px',
-              borderRadius: 'var(--radius-pill)',
-              boxShadow: '0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)',
-              whiteSpace: 'nowrap',
               pointerEvents: 'none',
               zIndex: 50,
             }}
           >
-            {label}
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.15, ease: [0.25, 1, 0.5, 1] }}
+              style={{
+                background: 'var(--surface)',
+                color: 'var(--text-primary)',
+                fontSize: '12px',
+                fontWeight: 500,
+                letterSpacing: '0.01em',
+                padding: '6px 12px',
+                borderRadius: 'var(--radius-pill)',
+                boxShadow: '0 4px 16px rgba(0,0,0,0.12), 0 1px 4px rgba(0,0,0,0.08)',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {label}
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
